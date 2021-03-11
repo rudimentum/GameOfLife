@@ -9,14 +9,17 @@ public class Main {
         long seed = scanner. nextLong();
         int numberOfGenerations = scanner.nextInt();
         Algorithm algorithm = new Algorithm(numberOfGenerations, universeSize, seed);
-        UniverseState universeState = algorithm.createUniverse();
-        universeState.print();
-
+        UniverseState universe = process(algorithm);
+        universe.print();
     }
 
-    public static void process(String[][] curGeneration, int numberOfGenerations) {
+    public static UniverseState process(Algorithm algorithm) {
+        int numberOfGenerations = algorithm.getNumberOfGenerations();
+        UniverseState universe = algorithm.createUniverse();
         for (int i = 0; i < numberOfGenerations; i++) {
+            universe = algorithm.computeNextGeneration();
         }
+        return universe;
     }
 
 }

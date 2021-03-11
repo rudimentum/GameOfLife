@@ -1,19 +1,19 @@
 package life;
 
 public class UniverseState {
-    private final String[][] universe;
+    private final char[][] universe;
 
-    public UniverseState(String[][] universe) {
+    public UniverseState(char[][] universe) {
         this.universe = universe;
     }
 
-    public String[][] getGeneration() {
+    public char[][] getUniverse() {
         return universe;
     }
 
     public void print() {
-        for (String[] i : universe) {
-            for (String j : i) {
+        for (char[] i : universe) {
+            for (char j : i) {
                 System.out.print(j);
             }
             System.out.println();
