@@ -17,9 +17,8 @@ public class Main {
         int numberOfGenerations = algorithm.getNumberOfGenerations();
         UniverseState universe = algorithm.createUniverse();
         for (int i = 0; i < numberOfGenerations; i++) {
-            universe = algorithm.computeNextGeneration();
+            universe = algorithm.computeNextGeneration(universe);
         }
         return universe;
     }
-
 }
