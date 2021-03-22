@@ -34,117 +34,55 @@ public class Algorithm {
     public UniverseState computeNextGeneration(UniverseState generation) {
         char[][] temp = generation.getUniverse();
         UniverseState nextGeneration = createUniverse();
-        for (int j = 0; j < temp.length; j++) {
-            for (int k = 0; k < temp[j].length; k++) {
+        for (int row = 0; row < temp.length; row++) {
+            for (int col = 0; col < temp[row].length; col++) {
                 int last = temp.length - 1;
-                char nw;
-                char n;
-                char ne;
-                char w;
-                char e;
-                char se;
-                char s;
-                char sw;
-                if (j == last && k == last) {
-                    nw = temp[j - 1][k - 1];
-                    n = temp[j - 1][k];
-                    ne = temp[j - 1][0];
-                    w = temp[j][k - 1];
-                    e = temp[j][0];
-                    se = temp[0][0];
-                    s = temp[0][k];
-                    sw = temp[0][k - 1];
-                } else if (j == last && k == 0) {
-                    nw = temp[j - 1][last];
-                    n = temp[j - 1][k];
-                    ne = temp[j - 1][k + 1];
-                    w = temp[last][last];
-                    e = temp[j][k + 1];
-                    sw = temp[0][last];
-                    s = temp[0][k];
-                    se = temp[0][k + 1];
-                } else if (j == 0 && k == last) {
-                    nw = temp[last][k - 1];
-                    n = temp[last][last];
-                    ne = temp[last][0];
-                    w = temp[j][k - 1];
-                    e = temp[j][0];
-                    sw = temp[j + 1][k - 1];
-                    s = temp[j + 1][k];
-                    se = temp[j + 1][0];
-                } else if (j == last) {
-                    nw = temp[j - 1][k - 1];
-                    n = temp[j - 1][k];
-                    ne = temp[j - 1][k + 1];
-                    w = temp[j][k - 1];
-                    e = temp[j][k + 1];
-                    sw = temp[0][k - 1];
-                    s = temp[0][k];
-                    se = temp[0][k + 1];
-                } else if (k == last) {
-                    nw = temp[j - 1][k - 1];
-                    n = temp[j - 1][k];
-                    ne = temp[j - 1][0];
-                    w = temp[j][k - 1];
-                    e = temp[j][0];
-                    sw = temp[j + 1][k - 1];
-                    s = temp[j + 1][k];
-                    se = temp[j + 1][0];
-                } else if (j == 0 && k == 0) {
-                    nw = temp[last][last];
-                    n = temp[last][k];
-                    ne = temp[last][k + 1];
-                    w = temp[j][last];
-                    e = temp[j][k + 1];
-                    sw = temp[j + 1][last];
-                    s = temp[j + 1][k];
-                    se = temp[j + 1][k + 1];
-                } else if (j == 0) {
-                    nw = temp[last][k - 1];
-                    n = temp[last][k];
-                    ne = temp[last][k + 1];
-                    w = temp[j][k - 1];
-                    e = temp[j][k + 1];
-                    sw = temp[j + 1][k - 1];
-                    s = temp[j + 1][k];
-                    se = temp[j + 1][k + 1];
-                } else if (k == 0) {
-                    nw = temp[j - 1][last];
-                    n = temp[j - 1][k];
-                    ne = temp[j - 1][k + 1];
-                    w = temp[j][last];
-                    e = temp[j][k + 1];
-                    sw = temp[j + 1][last];
-                    s = temp[j + 1][k];
-                    se = temp[j + 1][k + 1];
+                char[] neighbors;
+                if (row == last && col == last) {
+                    neighbors = new char[]{temp[row - 1][col - 1], temp[row - 1][col], temp[row - 1][0], temp[row][col - 1],
+                            temp[row][0], temp[0][col - 1], temp[0][col], temp[0][0]};
+                } else if (row == last && col == 0) {
+                    neighbors = new char[]{temp[row - 1][last], temp[row - 1][col], temp[row - 1][col + 1], temp[last][last],
+                            temp[row][col + 1], temp[0][last], temp[0][col], temp[0][col + 1]};
+                } else if (row == 0 && col == last) {
+                    neighbors = new char[]{temp[last][col - 1], temp[last][last], temp[last][0], temp[row][col - 1],
+                            temp[row][0], temp[row + 1][col - 1], temp[row + 1][col], temp[row + 1][0]};
+                } else if (row == last) {
+                    neighbors = new char[]{temp[row - 1][col - 1], temp[row - 1][col], temp[row - 1][col + 1], temp[row][col - 1],
+                            temp[row][col + 1], temp[0][col - 1], temp[0][col], temp[0][col + 1]};
+                } else if (col == last) {
+                    neighbors = new char[]{temp[row - 1][col - 1], temp[row - 1][col], temp[row - 1][0], temp[row][col - 1],
+                            temp[row][0], temp[row + 1][col - 1], temp[row + 1][col], temp[row + 1][0]};
+                } else if (row == 0 && col == 0) {
+                    neighbors = new char[]{temp[last][last], temp[last][col], temp[last][col + 1], temp[row][last],
+                            temp[row][col + 1], temp[row + 1][last], temp[row + 1][col], temp[row + 1][col + 1]};
+                } else if (row == 0) {
+                    neighbors = new char[]{temp[last][col - 1], temp[last][col], temp[last][col + 1], temp[row][col - 1],
+                            temp[row][col + 1], temp[row + 1][col - 1], temp[row + 1][col], temp[row + 1][col + 1]};
+                } else if (col == 0) {
+                    neighbors = new char[]{temp[row - 1][last], temp[row - 1][col], temp[row - 1][col + 1], temp[row][last],
+                            temp[row][col + 1], temp[row + 1][last], temp[row + 1][col], temp[row + 1][col + 1]};
                 } else {
-                    nw = temp[j - 1][k - 1];
-                    n = temp[j - 1][k];
-                    ne = temp[j - 1][k + 1];
-                    w = temp[j][k - 1];
-                    e = temp[j][k + 1];
-                    sw = temp[j + 1][k - 1];
-                    s = temp[j + 1][k];
-                    se = temp[j + 1][k + 1];
+                    neighbors = new char[]{temp[row - 1][col - 1], temp[row - 1][col], temp[row - 1][col + 1], temp[row][col - 1],
+                            temp[row][col + 1], temp[row + 1][col - 1], temp[row + 1][col], temp[row + 1][col + 1]};
                 }
-                char[] neighbors = {nw, n, ne, w, e, sw, s, se};
                 int liveNeighbors = 0;
                 for (char i : neighbors) {
                     if (i == 'O') {
                         liveNeighbors++;
                     }
                 }
-                if ('O' == temp[j][k]) {
+                if ('O' == temp[row][col]) {
                     if (liveNeighbors == 2 || liveNeighbors == 3) {
-                        nextGeneration.getUniverse()[j][k] = 'O';
+                        nextGeneration.getUniverse()[row][col] = 'O';
                     } else {
-                        nextGeneration.getUniverse()[j][k] = ' ';
+                        nextGeneration.getUniverse()[row][col] = ' ';
                     }
                 } else {
                     if (liveNeighbors == 3) {
-                        nextGeneration.getUniverse()[j][k] = 'O';
+                        nextGeneration.getUniverse()[row][col] = 'O';
                     } else {
-                        nextGeneration.getUniverse()[j][k] = ' ';
+                        nextGeneration.getUniverse()[row][col] = ' ';
                     }
                 }
             }
